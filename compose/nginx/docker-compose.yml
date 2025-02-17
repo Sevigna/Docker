@@ -1,0 +1,23 @@
+version: "3"
+services: 
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:dev-alpine
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /data-docker/nginx/certs/:/etc/nginx/certs
+      - /data-docker/nginx/vhost.d/:/etc/nginx/vhost.d/
+      - /data-docker/nginx/html/:/usr/share/nginx/html
+      - /data-docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - /data-docker/nginx/htpasswd/:/etc/nginx/htpasswd
+    environment:
+      - ENABLE_IPV6=false
+    networks:
+      - nginx_net
+    restart: unless-stopped
+
+networks:
+  nginx_net:

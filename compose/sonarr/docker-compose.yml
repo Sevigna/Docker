@@ -1,0 +1,22 @@
+version: "2.1"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - VIRTUAL_HOST=sonarr.rc-t.online
+      - VIRTUAL_PORT=8989
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /data-docker/sonarr:/config
+      - /medias/tv:/tv #optional
+      - /medias/downloads:/downloads #optional
+    restart: unless-stopped
+    networks:
+      - nginx_nginx_net  
+
+networks:
+  nginx_nginx_net:
+    external: true

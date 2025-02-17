@@ -1,0 +1,20 @@
+version: "3"
+services: 
+
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    networks:
+      - nginx_nginx_net
+    environment:
+      - VIRTUAL_HOST=logs.rc-t.online
+      - VIRTUAL_PORT=8080
+      - USER_UID=1000
+      - USER_GID=1000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+networks:
+  nginx_nginx_net:
+    external: true

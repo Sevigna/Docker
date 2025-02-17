@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+    qbit:
+        image: linuxserver/qbittorrent:latest
+        container_name: qbit
+        networks:
+          - nginx_nginx_net
+        environment:
+          - VIRTUAL_HOST=torrent.rc-t.online
+          - VIRTUAL_PORT=8040
+          - PUID=1000
+          - PGID=1000
+          - TZ=Europe/Paris
+          - UMASK_SET=022
+          - WEBUI_PORT=8040
+        volumes:
+           - /data-docker/qbit:/config
+           - /medias/downloads:/downloads
+           - /data-docker/qbit/vuetorrent:/vuetorrent
+        restart: unless-stopped
+
+networks:
+  nginx_nginx_net:
+    external: true

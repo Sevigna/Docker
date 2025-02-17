@@ -1,0 +1,24 @@
+version: "2.1"
+services:
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      - VIRTUAL_HOST=jackett.rc-t.online
+      - VIRTUAL_PORT=9117
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - AUTO_UPDATE=true #optional
+      - RUN_OPTS=<run options here> #optional
+    volumes:
+      - /data-docker/jackett/:/config
+      - /medias/downloads:/downloads
+    restart: unless-stopped   
+    networks:
+      - nginx_nginx_net    
+       
+
+networks:
+  nginx_nginx_net:
+    external: true

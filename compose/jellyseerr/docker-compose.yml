@@ -1,0 +1,22 @@
+version: '3'
+services:
+    jellyseerr:
+       image: fallenbagel/jellyseerr:latest
+       container_name: jellyseerr
+       environment:
+            - LOG_LEVEL=debug
+            - TZ=Eurpoe/Paris
+            - VIRTUAL_HOST=ombi.rc-t.online
+            - VIRTUAL_PORT=5055
+       networks:
+            - nginx_nginx_net     
+       volumes:
+            - /data-docker/jellyseerr/config:/app/config
+       restart: unless-stopped
+       
+networks:
+  nginx_nginx_net:
+    external: true
+    
+       
+       

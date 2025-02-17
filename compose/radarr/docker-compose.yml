@@ -1,0 +1,22 @@
+version: "2.1"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - VIRTUAL_HOST=radarr.rc-t.online
+      - VIRTUAL_PORT=7878
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - /data-docker/radarr:/config
+      - /medias/movies:/movies #optional
+      - /medias/downloads:/downloads #optional
+    restart: unless-stopped
+    networks:
+      - nginx_nginx_net  
+
+networks:
+  nginx_nginx_net:
+    external: true
